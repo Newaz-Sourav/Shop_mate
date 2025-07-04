@@ -20,130 +20,119 @@
     html {
       scroll-behavior: smooth;
     }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero-bg-gradient {
+      background: linear-gradient(270deg, #4f46e5, #ec4899, #8b5cf6);
+      background-size: 600% 600%;
+      animation: gradientShift 20s ease infinite;
+    }
+
+    @keyframes floatUpDown {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.6; }
+      50% { transform: translateY(-20px) translateX(10px); opacity: 1; }
+    }
+
+    .floating-bubble {
+      position: absolute;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.3);
+      filter: blur(16px);
+      pointer-events: none;
+      animation: floatUpDown 6s ease-in-out infinite;
+    }
+    .bubble1 { width: 60px; height: 60px; top: 20%; left: 15%; animation-duration: 8s; animation-delay: 0s; }
+    .bubble2 { width: 100px; height: 100px; top: 40%; left: 70%; animation-duration: 12s; animation-delay: 3s; }
+    .bubble3 { width: 40px; height: 40px; top: 65%; left: 40%; animation-duration: 9s; animation-delay: 1.5s; }
+    .bubble4 { width: 80px; height: 80px; top: 30%; left: 50%; animation-duration: 10s; animation-delay: 5s; }
+
+    @keyframes bounceFadeIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-bounceFadeIn {
+      animation: bounceFadeIn 1s ease-out forwards;
+    }
+
+    @keyframes cardFadeUp {
+      0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .card-animate {
+      animation: cardFadeUp 0.7s ease-out forwards;
+    }
   </style>
 </head>
-<body
-  class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen text-gray-800 font-sans"
->
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen text-gray-800 font-sans">
 
-  <!-- 🔥 Hero Section -->
-  <section
-    class="bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 text-white py-20 px-6 text-center shadow-xl relative overflow-hidden"
-  >
-    <!-- subtle floating circles decoration -->
-    <div
-      aria-hidden="true"
-      class="absolute top-10 left-10 w-32 h-32 bg-pink-300 rounded-full opacity-30 animate-pulse mix-blend-multiply"
-    ></div>
-    <div
-      aria-hidden="true"
-      class="absolute bottom-10 right-10 w-48 h-48 bg-indigo-400 rounded-full opacity-20 animate-pulse mix-blend-multiply"
-    ></div>
+  <!-- Hero Section -->
+  <section class="hero-bg-gradient text-white py-28 px-6 text-center shadow-xl relative overflow-hidden">
+    <div class="absolute top-10 left-10 w-32 h-32 bg-pink-300 rounded-full opacity-10 animate-pulse mix-blend-multiply -z-10"></div>
+    <div class="absolute bottom-10 right-10 w-48 h-48 bg-indigo-400 rounded-full opacity-10 animate-pulse mix-blend-multiply -z-10"></div>
 
-    <h1 class="text-5xl sm:text-6xl font-extrabold mb-5 drop-shadow-lg">
-      🛒 Welcome to ShopMate
-    </h1>
-    <p class="text-lg sm:text-xl mb-8 max-w-3xl mx-auto drop-shadow-md">
+    <!-- Floating bubbles -->
+    <div class="floating-bubble bubble1 -z-10"></div>
+    <div class="floating-bubble bubble2 -z-10"></div>
+    <div class="floating-bubble bubble3 -z-10"></div>
+    <div class="floating-bubble bubble4 -z-10"></div>
+
+    <h1 class="text-5xl sm:text-6xl font-extrabold mb-5 drop-shadow-lg animate-bounceFadeIn">🛒 Welcome to ShopMate</h1>
+    <p class="text-lg sm:text-xl mb-8 max-w-3xl mx-auto drop-shadow-md animate-bounceFadeIn" style="animation-delay: 0.3s; animation-fill-mode: both;">
       Discover the best deals on amazing products, with fast delivery and quality assurance — all in one place.
     </p>
-    <a
-      href="#card-display"
-      class="bg-white text-purple-700 font-bold px-8 py-4 rounded-full shadow-md inline-block hover:bg-purple-100 transition duration-300"
-      >Shop Now</a
-    >
+
+    <a href="#card-display" class="bg-white text-purple-700 font-bold px-8 py-4 rounded-full shadow-md inline-block hover:bg-purple-100 transition duration-300 z-50 relative animate-bounceFadeIn" style="animation-delay: 0.6s; animation-fill-mode: both;">
+      Shop Now
+    </a>
   </section>
 
-  <!-- Main content area: product grid + cart sidebar -->
+  <!-- Product Grid + Cart -->
   <div class="flex flex-col lg:flex-row max-w-7xl mx-auto mt-10 px-6 gap-8">
-
-    <!-- Product Grid -->
-    <main
-      id="card-display"
-      class="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 overflow-y-auto max-h-[calc(100vh-200px)]"
-    >
-      <!-- JS will insert product cards here -->
+    <main id="card-display" class="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 overflow-y-auto max-h-[calc(100vh-200px)]">
+      <!-- JS inserts product cards -->
     </main>
 
-    <!-- Cart Sidebar -->
-    <aside
-      class="w-full lg:w-96 bg-white rounded-xl shadow-lg p-6 sticky top-20 h-[calc(100vh-160px)] flex flex-col justify-between"
-    >
+    <aside class="w-full lg:w-96 bg-white rounded-xl shadow-lg p-6 sticky top-20 h-[calc(100vh-220px)] flex flex-col justify-between">
       <div>
         <h2 class="text-2xl font-semibold mb-4 border-b pb-2">🛒 My Cart</h2>
         <div class="flex flex-col gap-4 font-medium text-gray-800">
-          <p>
-            Total Products:
-            <span id="totall-item" class="font-bold text-blue-600">0</span>
-          </p>
-          <p>
-            Price:
-            $<span id="price" class="font-bold text-green-600">0</span>
-          </p>
-          <p>
-            Delivery:
-            $<span id="delivery" class="font-bold text-orange-600">0</span>
-          </p>
+          <p>Total Products: <span id="totall-item" class="font-bold text-blue-600">0</span></p>
+          <p>Price: $<span id="price" class="font-bold text-green-600">0</span></p>
+          <p>Delivery: $<span id="delivery" class="font-bold text-orange-600">0</span></p>
         </div>
       </div>
 
       <div class="mt-6 border-t pt-4 flex flex-col gap-3">
-        <p class="text-lg font-semibold text-rose-800">
-          Total Price:
-          $<span id="totall-price" class="font-bold text-3xl">00</span>
-        </p>
-        <button
-          onclick="orderBtn()"
-          class="bg-green-500 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition"
-        >
-          Order Now
-        </button>
+        <p class="text-lg font-semibold text-rose-800">Total Price: $<span id="totall-price" class="font-bold text-3xl">00</span></p>
+        <button onclick="orderBtn()" class="bg-green-500 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition">Order Now</button>
       </div>
 
-      <div
-        class="mt-6 bg-fuchsia-100 p-4 rounded-lg border text-center shadow-inner"
-      >
-        <h3 class="text-lg font-semibold text-fuchsia-800 border-b pb-1 mb-2">
-          📦 Order Summary
-        </h3>
+      <div class="mt-6 bg-fuchsia-100 p-4 rounded-lg border text-center shadow-inner">
+        <h3 class="text-lg font-semibold text-fuchsia-800 border-b pb-1 mb-2">📦 Order Summary</h3>
         <p class="text-gray-700 mb-1">Your Total</p>
-        <p class="text-xl font-bold text-fuchsia-600">
-          $ <span id="orderCon">00</span>
-        </p>
+        <p class="text-xl font-bold text-fuchsia-600">$ <span id="orderCon">00</span></p>
       </div>
     </aside>
   </div>
 
-  <!-- Main Footer -->
+  <!-- Footer -->
   <footer class="bg-gray-900 text-gray-300 py-12 mt-16">
-    <div
-      class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl"
-    >
+    <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl">
       <div>
         <h4 class="font-bold mb-3 text-lg text-white">ShopMate</h4>
-        <p>
-          Your reliable shopping partner. Quality & satisfaction guaranteed.
-        </p>
+        <p>Your reliable shopping partner. Quality & satisfaction guaranteed.</p>
       </div>
       <div>
         <h4 class="font-semibold mb-3 text-white">Quick Links</h4>
         <ul class="space-y-2">
-          <li>
-            <a
-              href="#card-display"
-              class="hover:underline hover:text-purple-400 transition"
-              >Products</a
-            >
-          </li>
-          <li>
-            <a href="#" class="hover:underline hover:text-purple-400 transition"
-              >Cart</a
-            >
-          </li>
-          <li>
-            <a href="#" class="hover:underline hover:text-purple-400 transition"
-              >Help</a
-            >
-          </li>
+          <li><a href="#card-display" class="hover:underline hover:text-purple-400 transition">Products</a></li>
+          <li><a href="#" class="hover:underline hover:text-purple-400 transition">Cart</a></li>
+          <li><a href="#" class="hover:underline hover:text-purple-400 transition">Help</a></li>
         </ul>
       </div>
       <div>
@@ -155,36 +144,14 @@
       <div>
         <h4 class="font-semibold mb-3 text-white">Follow Us</h4>
         <div class="flex gap-6 mt-3 text-xl">
-          <a
-            href="#"
-            class="hover:text-blue-500 transition"
-            aria-label="Facebook"
-            ><i class="fab fa-facebook"></i
-          ></a>
-          <a
-            href="#"
-            class="hover:text-pink-500 transition"
-            aria-label="Instagram"
-            ><i class="fab fa-instagram"></i
-          ></a>
-          <a
-            href="#"
-            class="hover:text-sky-400 transition"
-            aria-label="Twitter"
-            ><i class="fab fa-twitter"></i
-          ></a>
-          <a
-            href="#"
-            class="hover:text-red-600 transition"
-            aria-label="YouTube"
-            ><i class="fab fa-youtube"></i
-          ></a>
+          <a href="#" class="hover:text-blue-500 transition" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="hover:text-pink-500 transition" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-sky-400 transition" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="hover:text-red-600 transition" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
     </div>
-    <div class="text-center mt-10 text-xs text-gray-500">
-      &copy; 2025 ShopMate. All rights reserved.
-    </div>
+    <div class="text-center mt-10 text-xs text-gray-500">&copy; 2025 ShopMate. All rights reserved.</div>
   </footer>
 
   <script src="app.js"></script>

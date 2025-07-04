@@ -9,18 +9,19 @@ let count = 0;
 
 const showDetails = (products) => {
   const container = document.getElementById('card-display');
+  container.innerHTML = ''; // clear before adding
   products.forEach(product => {
     const card = document.createElement('div');
-    card.className = "bg-white shadow-lg rounded-xl p-4 flex flex-col items-center hover:scale-[1.02] transition";
+    card.className = "product-card bg-white shadow-lg rounded-xl p-4 flex flex-col items-center hover:scale-[1.05] transition-transform duration-300";
 
     card.innerHTML = `
       <img src="${product.image}" class="w-32 h-32 object-contain mb-2" alt="product image"/>
-      <h3 class="text-center text-sm font-semibold mb-1">${product.title}</h3>
+      <h3 class="text-center text-sm font-semibold mb-1 line-clamp-2">${product.title}</h3>
       <p class="text-base font-bold text-green-700 mb-1">$${product.price}</p>
       <div class="mb-2">${ratings(product.rating.rate)}</div>
       <div class="flex gap-2">
-        <button onclick="addToCart(${product.id}, ${product.price})" class="px-3 py-1 bg-violet-500 text-white rounded hover:bg-violet-600">Add</button>
-        <button onclick="removeFromCart(${product.id}, ${product.price})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
+        <button onclick="addToCart(${product.id}, ${product.price})" class="ripple px-3 py-1 bg-violet-500 text-white rounded hover:bg-violet-600 transition">Add</button>
+        <button onclick="removeFromCart(${product.id}, ${product.price})" class="ripple px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">Remove</button>
       </div>
     `;
     container.appendChild(card);
@@ -71,9 +72,9 @@ const orderBtn = () => {
 
 const ratings = (rate) => {
   const fullStars = Math.floor(rate);
-  let stars = '<div class="text-yellow-500">';
+  let stars = '<div class="text-yellow-500 flex items-center justify-center gap-1">';
   for (let i = 0; i < fullStars; i++) stars += '<i class="fas fa-star"></i>';
-  stars += ` <span class="text-black">${rate}</span></div>`;
+  stars += `<span class="text-black font-semibold">${rate.toFixed(1)}</span></div>`;
   return stars;
 }
 
